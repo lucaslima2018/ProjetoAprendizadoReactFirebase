@@ -26,7 +26,7 @@ function AuthProvider({ children }){
     const showSnackbarError = (message) => {
         setNotificationMessage(message);
         setShowNotificationError(true);
-      };
+    };
       
       const showSnackbarSuccess = (message) => {
         setNotificationMessage(message);
@@ -106,7 +106,8 @@ function AuthProvider({ children }){
 
             await setDoc(doc(db, "users", uid), {
                 nome: name,
-                avatarUrl: null
+                avatarUrl: null,
+                nomeImagem: ""
             })
             .then( () => {
 
@@ -114,7 +115,8 @@ function AuthProvider({ children }){
                     uid: uid,
                     nome: name,
                     email: value.user.email,
-                    avatarUrl: null
+                    avatarUrl: null,
+                    nomeImagem: ""
                 };
 
                 setUser(data);
@@ -123,7 +125,7 @@ function AuthProvider({ children }){
                 // toast.success("Seja bem-vindo ao sistema!");
                 // alert("Seja bem-vindo ao sistema!");
                 showSnackbarSuccess("Seja bem-vindo(a) ao sistema!");
-                navigate("/home");
+                navigate("/homeuser");
             })
         })
         .catch((error) => {

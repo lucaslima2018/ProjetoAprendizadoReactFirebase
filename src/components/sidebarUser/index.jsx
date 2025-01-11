@@ -24,7 +24,7 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 import QuestionMarkIcon from '@mui/icons-material/QuestionMark';
 import LogoutIcon from '@mui/icons-material/Logout';
-import PersonAddIcon from '@mui/icons-material/PersonAdd';
+//import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { Container } from '@mui/material';
 
@@ -149,13 +149,12 @@ export default function MiniDrawerUser(prop) {
         <Divider />
         <List>
           {[
-            { text: 'Inicio', icon: <HomeIcon />, href: '/home' },
-            { text: 'Notificações', icon: <NotificationsIcon />, href: '/' },
-            { text: 'E-Mail', icon: <MailIcon />, href: '/' },
-            // { text: 'Cadastro de Usuários', icon: <PersonAddIcon />, href: '/cadastro' },
-            { text: 'Perfil do Usuário', icon: <AccountCircleIcon />, href: '/perfil' },
-            { text: 'Informações da Conta', icon: <ManageAccountsIcon />, href: '/configuracoes' },
-            { text: 'Dúvidas - Suporte', icon: <QuestionMarkIcon />, href: '/' },
+            { text: 'Inicio', icon: <HomeIcon />, href: '/homeuser' },
+            { text: 'Notificações', icon: <NotificationsIcon />, href: '/homeuser' },
+            { text: 'E-Mail', icon: <MailIcon />, href: '/homeuser' },
+            { text: 'Perfil do Usuário', icon: <AccountCircleIcon />, href: '/perfiluser' },
+            { text: 'Informações da Conta', icon: <ManageAccountsIcon />, href: '/configuracoesuser' },
+            { text: 'Dúvidas - Suporte', icon: <QuestionMarkIcon />, href: '/suporte' },
           ].map((item) => (
             <ListItem key={item.text} disablePadding sx={{ display: 'block' }}>
               <ListItemButton

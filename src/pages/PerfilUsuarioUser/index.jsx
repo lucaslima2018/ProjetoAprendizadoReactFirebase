@@ -1,7 +1,7 @@
 import PhotoCamera from '@mui/icons-material/PhotoCamera';
 import { Button, Container, Grid, TextField, Typography } from '@mui/material';
 
-import MiniDrawerUser from '../../components/sidebarUser';
+import MiniDrawerUser from "../../components/sidebarUser";
 
 import { button1, button2, container1, container2, container3, grid, textfield, typography1, typography2 } from './stylePerfilUsuario';
 
@@ -49,17 +49,20 @@ const PerfilUsuarioUser = () => {
         .then((snapshot) => {
             getDownloadURL(snapshot.ref).then( async (downloadURL) => {
                 let urlFoto = downloadURL;
+                let nomeImagem = imageAvatar.name;
 
                 const docRef = doc(db, "users", user.uid)
                 await updateDoc(docRef, {
                     avatarUrl: urlFoto,
                     nome: nome,
+                    nomeImagem: nomeImagem
                 })
                 .then(() => {
                     let data = {
                         ...user,
                         nome: nome,
                         avatarUrl: urlFoto,
+                        nomeImagem: nomeImagem
                     }
     
                     setUser(data);

@@ -10,6 +10,8 @@ import HomeUser from '../pages/HomeUser';
 import PerfilUsuarioUser from '../pages/PerfilUsuarioUser';
 import ConfiguracoesDaContaUser from '../pages/ConfiguracoesDaContaUser';
 
+import Suporte from '../pages/Suporte';
+
 import AccessDenied from '../components/accessDenied';
 
 import Private from './Private';
@@ -20,12 +22,13 @@ const RoutesApp = () => {
             <Route exact path='/' element={<Login />} />
             <Route exact path='/homeadmin' element={<Private><HomeAdmin /></Private>} />
             <Route path='/cadastro' element={<Private><CadastroUsuario /></Private>} />
-            <Route path='/perfil' element={<Private><PerfilUsuarioAdmin /></Private>} />
-            <Route path='/configuracoes' element={<Private><ConfiguracoesDaContaAdmin /></Private>} />
+            <Route path='/perfiladmin' element={<Private><PerfilUsuarioAdmin /></Private>} />
+            <Route path='/configuracoesadmin' element={<Private><ConfiguracoesDaContaAdmin /></Private>} />
 
             <Route exact path='/homeuser' element={<Private><HomeUser /></Private>} />
-            <Route path='/perfil' element={<Private><PerfilUsuarioUser /></Private>} />
-            <Route path='/configuracoes' element={<Private><ConfiguracoesDaContaUser /></Private>} />
+            <Route path='/perfiluser' element={<Private><PerfilUsuarioUser /></Private>} />
+            <Route path='/configuracoesuser' element={<Private><ConfiguracoesDaContaUser /></Private>} />
+            <Route path='/suporte' element={<Private><Suporte /></Private>} />
 
             <Route path='accessDenied' element={<AccessDenied />} />
         </Routes>
