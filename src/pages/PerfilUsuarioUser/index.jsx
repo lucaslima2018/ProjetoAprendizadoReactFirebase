@@ -10,8 +10,8 @@ import avatar from '../../assets/avatar.png';
 import { AuthContext } from '../../contexts/auth';
 
 import { db, storage } from '../../services/firebaseConnection';
-import { doc, updateDoc } from 'firebase/firestore';
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { doc, updateDoc, getDoc } from 'firebase/firestore';
+import { ref, uploadBytes, getDownloadURL, deleteObject } from "firebase/storage";
 
 import './perfilUsuario.css';
 
@@ -49,20 +49,19 @@ const PerfilUsuarioUser = () => {
         .then((snapshot) => {
             getDownloadURL(snapshot.ref).then( async (downloadURL) => {
                 let urlFoto = downloadURL;
-                let nomeImagem = imageAvatar.name;
 
                 const docRef = doc(db, "users", user.uid)
                 await updateDoc(docRef, {
                     avatarUrl: urlFoto,
                     nome: nome,
-                    nomeImagem: nomeImagem
+                    nomeImagem: imageAvatar.name
                 })
                 .then(() => {
                     let data = {
                         ...user,
                         nome: nome,
                         avatarUrl: urlFoto,
-                        nomeImagem: nomeImagem
+                        nomeImagem: imageAvatar.name
                     }
     
                     setUser(data);
@@ -102,7 +101,43 @@ const PerfilUsuarioUser = () => {
         }
     }
 
-
+    async function handleRemovePhoto() {
+        const currentUid = user.uid;
+    
+        if (user.avatarUrl && user.nomeImagem) {
+            try {
+                // Referência ao arquivo no Storage
+                const imageRef = ref(storage, `images/${user.uid}/${user.nomeImagem}`);
+    
+                // Remove a imagem do Storage
+                await deleteObject(imageRef);
+    
+                // Atualiza o Firestore para remover a URL do avatar
+                const docRef = doc(db, "users", user.uid);
+                await updateDoc(docRef, {
+                    avatarUrl: null,
+                    nomeImagem: null
+                });
+    
+                // Atualiza o estado local e armazenamento local
+                let data = {
+                    ...user,
+                    avatarUrl: null,
+                    nomeImagem: null
+                };
+                setUser(data);
+                storageUser(data);
+    
+                alert("Foto de perfil removida com sucesso!");
+            } catch (error) {
+                console.error("Erro ao remover a foto de perfil:", error);
+                alert("Falha ao remover a foto de perfil. Tente novamente.");
+            }
+        } else {
+            alert("Nenhuma foto de perfil para remover.");
+        }
+    }
+    
     return (
         <div>
             <MiniDrawerUser>
@@ -129,6 +164,7 @@ const PerfilUsuarioUser = () => {
 
                             </Container>
                             <TextField sx={textfield} type="text" value={nome} fullWidth id="outlined-basic" label="Nome" variant="outlined" onChange={(e) => setNome(e.target.value)} />
+                            <Button variant="contained" color="info" fullWidth sx={button1} onClick={handleRemovePhoto} >Remover Foto do Perfil</Button>
                             <Button variant="contained" color="info" fullWidth sx={button2} type="submit">Atualizar Dados</Button>
                         </form>
                     </Container>

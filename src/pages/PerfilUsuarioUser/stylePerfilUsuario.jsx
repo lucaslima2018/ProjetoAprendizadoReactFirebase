@@ -1,5 +1,5 @@
 export const container1 = {
-    flexDirection: "collumn", width: '500px', height: '500px'
+    flexDirection: "collumn", width: '500px', height: '480px', mt: "-1%", mb: "5%"
 }
 
 export const container2 = {
@@ -31,5 +31,5 @@ export const button2 = {
 }
 
 export const grid = {
-    borderRadius: '35px', border: 2, borderColor: '#0073AE', width: '100%', mt: '4%'
+    borderRadius: '35px', border: 2, borderColor: '#0073AE', width: '100%', mt: '1%'
 }
